@@ -15,7 +15,7 @@ function createTable(size) {
         }
     }
 
-    for (let i = 0; i < 40;) {
+     for (let i = 0; i < 40;) {
         const x = Math.floor(Math.random() * size);
         const y = Math.floor(Math.random() * size);
 
@@ -56,6 +56,7 @@ function Game(props) {
     const [time, setTime] = useState(0);
     const [count, setCount] = useState(40);
     const [running, setRunning] = useState(false);
+    const [lock, setLock] = useState(true);
 
     const victory = useMemo(() => !value.some(
         (f, i) =>
@@ -88,6 +89,14 @@ function Game(props) {
     }
 
     function clickEvent(x, y) {
+
+        if (value[y * size + x] === Bomb && lock === true) {
+            setValue(() => createTable(size));
+            return;
+        }
+
+        setLock(false);
+
         setRunning(true);
 
         if (veil[y * size + x] === Veils.Transparent) return;
