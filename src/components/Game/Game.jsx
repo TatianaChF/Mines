@@ -79,16 +79,6 @@ function Game(props) {
         }
     }, [running, victory]);
 
-    function counter() {
-        for (let i = 1; i < size*size; ) {
-            if (veil[i] === Veils.Flag) {
-                setCount(count-1);
-            }
-
-            i++;
-        }
-    }
-
     function clear(x, y) {
         if (x >= 0 && x < size && y >= 0 && y < size) {
             if (veil[y * size + x] === Veils.Transparent) return;
@@ -146,17 +136,19 @@ function Game(props) {
 
         if (veil[y * size + x] === Veils.Fill) {
             veil[y * size + x] = Veils.Flag;
+            setCount(count-1);
         }
         else if (veil[y * size + x] === Veils.Flag) {
             veil[y * size + x] = Veils.Question;
         }
         else if (veil[y * size + x] === Veils.Question) {
             veil[y * size + x] = Veils.Fill;
+            setCount(count+1)
         }
 
         setVeil((prev) => [...prev]);
 
-        counter();
+        // counter();
     }
 
     return (
