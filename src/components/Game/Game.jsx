@@ -42,7 +42,7 @@ const Veils = {
     Transparent: null,
     Fill: "",
     Flag: "🏴",
-    Question: "?"
+    Question: "❓"
 }
 
 function Game(props) {
@@ -129,7 +129,6 @@ function Game(props) {
                     window.location.reload();
                 }
                 veil.forEach((_, i) => veil[i] = Veils.Transparent);})
-
 
             setFail(true);
             setRunning(false);
