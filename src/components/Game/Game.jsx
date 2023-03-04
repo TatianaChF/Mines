@@ -89,6 +89,7 @@ function Game(props) {
 
     function clickEvent(x, y) {
         setRunning(true);
+
         if (veil[y * size + x] === Veils.Transparent) return;
 
         clear(x, y);
@@ -106,19 +107,8 @@ function Game(props) {
 
         }
 
-        /*function firstClick() {
-            if (veil.every === Veils.Fill) {
-                window.location.reload();
-            }
-        }*/
-
         if (value[y * size + x] === Bomb) {
-            veil.every((element) => {
-                if (element === Veils.Transparent
-                    && veil.some === Veils.Fill) {
-                    window.location.reload();
-                }
-                veil.forEach((_, i) => veil[i] = Veils.Transparent);})
+            veil.forEach((_, i) => veil[i] = Veils.Transparent);
 
             setFail(true);
             setRunning(false);
@@ -147,8 +137,6 @@ function Game(props) {
         }
 
         setVeil((prev) => [...prev]);
-
-        // counter();
     }
 
     return (
