@@ -42,7 +42,7 @@ const Veils = {
     Transparent: null,
     Fill: "",
     Flag: "🏴",
-    Question: "?"
+    Question: "❓"
 }
 
 function Game(props) {
@@ -79,16 +79,6 @@ function Game(props) {
         }
     }, [running, victory]);
 
-    function counter() {
-        for (let i = 1; i < size*size; ) {
-            if (veil[i] === Veils.Flag) {
-                setCount(count-1);
-            }
-
-            i++;
-        }
-    }
-
     function clear(x, y) {
         if (x >= 0 && x < size && y >= 0 && y < size) {
             if (veil[y * size + x] === Veils.Transparent) return;
@@ -99,6 +89,7 @@ function Game(props) {
 
     function clickEvent(x, y) {
         setRunning(true);
+
         if (veil[y * size + x] === Veils.Transparent) return;
 
         clear(x, y);
@@ -116,20 +107,8 @@ function Game(props) {
 
         }
 
-        /*function firstClick() {
-            if (veil.every === Veils.Fill) {
-                window.location.reload();
-            }
-        }*/
-
         if (value[y * size + x] === Bomb) {
-            veil.every((element) => {
-                if (element === Veils.Transparent
-                    && veil.some === Veils.Fill) {
-                    window.location.reload();
-                }
-                veil.forEach((_, i) => veil[i] = Veils.Transparent);})
-
+            veil.forEach((_, i) => veil[i] = Veils.Transparent);
 
             setFail(true);
             setRunning(false);
@@ -147,17 +126,17 @@ function Game(props) {
 
         if (veil[y * size + x] === Veils.Fill) {
             veil[y * size + x] = Veils.Flag;
+            setCount(count-1);
         }
         else if (veil[y * size + x] === Veils.Flag) {
             veil[y * size + x] = Veils.Question;
         }
         else if (veil[y * size + x] === Veils.Question) {
             veil[y * size + x] = Veils.Fill;
+            setCount(count+1)
         }
 
         setVeil((prev) => [...prev]);
-
-        counter();
     }
 
     return (
